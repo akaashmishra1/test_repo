@@ -1,11 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Maker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    form {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    form input, form textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    #preview {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+  </style>
 </head>
-<body>  
-     <iframe width="560" height="315" src="https://www.youtube.com/embed/rklidcZ-aLU?si=fDzlU5IxSnY_JwFH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>" title="html course video"></iframe>
+<body>
+
+  <form id="resumeForm">
+    <h2>Enter Resume Details</h2>
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <textarea id="education" placeholder="Education" rows="3"></textarea>
+    <textarea id="skills" placeholder="Skills (comma-separated)" rows="3"></textarea>
+    <textarea id="experience" placeholder="Experience" rows="3"></textarea>
+    <button type="button" onclick="generateResume()">Generate Resume</button>
+    <button type="button" onclick="downloadPDF()">Download PDF</button>
+  </form>
+
+  <div id="preview">
+    <h2>Resume Preview</h2>
+    <div id="output">
+      <p><strong>Name:</strong> <span id="outName"></span></p>
+      <p><strong>Email:</strong> <span id="outEmail"></span></p>
+      <p><strong>Education:</strong> <span id="outEducation"></span></p>
+      <p><strong>Skills:</strong> <span id="outSkills"></span></p>
+      <p><strong>Experience:</strong> <span id="outExperience"></span></p>
+    </div>
+  </div>
+
+  <!-- html2pdf CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    function generateResume() {
+      document.getElementById('outName').textContent = document.getElementById('name').value;
+      document.getElementById('outEmail').textContent = document.getElementById('email').value;
+      document.getElementById('outEducation').textContent = document.getElementById('education').value;
+      document.getElementById('outSkills').textContent = document.getElementById('skills').value;
+      document.getElementById('outExperience').textContent = document.getElementById('experience').value;
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('preview');
+      html2pdf().from(element).save('My_Resume.pdf');
+    }
+  </script>
+
 </body>
 </html>
